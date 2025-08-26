@@ -1,0 +1,1 @@
+# dell-7820-auto-fan-control
