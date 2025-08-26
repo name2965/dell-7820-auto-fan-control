@@ -29,14 +29,14 @@ void dell_proc_show()
     int cpu1_fan = dell_get_fan_speed(I8K_FAN_CPU_1);
     int cpu1_status = dell_get_fan_status(I8K_FAN_CPU_1);
 
+    int front0_fan = dell_get_fan_speed(I8K_FAN_FRONT_0);
+    int front0_status = dell_get_fan_status(I8K_FAN_FRONT_0);
+
     int sys0_fan = dell_get_fan_speed(I8K_FAN_SYS_0);
     int sys0_status = dell_get_fan_status(I8K_FAN_SYS_0);
 
     int sys1_fan = dell_get_fan_speed(I8K_FAN_SYS_1);
     int sys1_status = dell_get_fan_status(I8K_FAN_SYS_1);
-
-    int sys2_fan = dell_get_fan_speed(I8K_FAN_SYS_2);
-    int sys2_status = dell_get_fan_status(I8K_FAN_SYS_2);
 
     int rear0_fan = dell_get_fan_speed(I8K_FAN_REAR_0);
     int rear0_status = dell_get_fan_status(I8K_FAN_REAR_0);
@@ -57,9 +57,9 @@ void dell_proc_show()
     printf("------------------------------------------------------------\n");
     printf("%-6d  %-7s  %8d  %s\n", I8K_FAN_CPU_0, fan_name[I8K_FAN_CPU_0], cpu0_fan, fan_status[cpu0_status]);
     printf("%-6d  %-7s  %8d  %s\n", I8K_FAN_CPU_1, fan_name[I8K_FAN_CPU_1], cpu1_fan, fan_status[cpu1_status]);
+    printf("%-6d  %-7s  %8d  %s\n", I8K_FAN_FRONT_0, fan_name[I8K_FAN_FRONT_0], front0_fan, fan_status[front0_status]);
     printf("%-6d  %-7s  %8d  %s\n", I8K_FAN_SYS_0, fan_name[I8K_FAN_SYS_0], sys0_fan, fan_status[sys0_status]);
     printf("%-6d  %-7s  %8d  %s\n", I8K_FAN_SYS_1, fan_name[I8K_FAN_SYS_1], sys1_fan, fan_status[sys1_status]);
-    printf("%-6d  %-7s  %8d  %s\n", I8K_FAN_SYS_2, fan_name[I8K_FAN_SYS_2], sys2_fan, fan_status[sys2_status]);
     printf("%-6d  %-7s  %8d  %s\n", I8K_FAN_REAR_0, fan_name[I8K_FAN_REAR_0], rear0_fan, fan_status[rear0_status]);
     printf("%-6d  %-7s  %8d  %s\n", I8K_FAN_REAR_1, fan_name[I8K_FAN_REAR_1], rear1_fan, fan_status[rear1_status]);
     printf("============================================================\n");
@@ -71,9 +71,9 @@ void dell_set_fan(int speed)
     dell_set_fan_speed(I8K_FAN_REAR_1, speed);
     dell_set_fan_speed(I8K_FAN_CPU_0, speed);
     dell_set_fan_speed(I8K_FAN_CPU_1, speed);
+    dell_set_fan_speed(I8K_FAN_FRONT_0, speed);
     dell_set_fan_speed(I8K_FAN_SYS_0, speed);
     dell_set_fan_speed(I8K_FAN_SYS_1, speed);
-    dell_set_fan_speed(I8K_FAN_SYS_2, speed);
 }
 
 int find_dell_smm_hwmon()

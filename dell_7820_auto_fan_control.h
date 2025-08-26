@@ -3,9 +3,9 @@
 enum {
     I8K_FAN_CPU_0 = 0,
     I8K_FAN_CPU_1,
+    I8K_FAN_FRONT_0,
     I8K_FAN_SYS_0,
     I8K_FAN_SYS_1,
-    I8K_FAN_SYS_2,
     I8K_FAN_REAR_0,
     I8K_FAN_REAR_1,
 };
@@ -18,9 +18,9 @@ enum {
 char *fan_name[] = {
     "CPU 0",
     "CPU 1",
+    "FRONT 0",
     "SYS 0",
     "SYS 1",
-    "SYS 2",
     "REAR 0",
     "REAR 1",
 };
@@ -182,9 +182,9 @@ static int dell_set_fan_speed(int fan, int speed)
 static void set_all_fans_low(void) {
     dell_set_fan_speed(I8K_FAN_CPU_0,  I8K_FAN_LOW);
     dell_set_fan_speed(I8K_FAN_CPU_1,  I8K_FAN_LOW);
+    dell_set_fan_speed(I8K_FAN_FRONT_0,  I8K_FAN_LOW);
     dell_set_fan_speed(I8K_FAN_SYS_0,  I8K_FAN_LOW);
     dell_set_fan_speed(I8K_FAN_SYS_1,  I8K_FAN_LOW);
-    dell_set_fan_speed(I8K_FAN_SYS_2,  I8K_FAN_LOW);
     dell_set_fan_speed(I8K_FAN_REAR_0, I8K_FAN_LOW);
     dell_set_fan_speed(I8K_FAN_REAR_1, I8K_FAN_LOW);
 }
