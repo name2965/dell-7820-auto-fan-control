@@ -55,13 +55,13 @@ void dell_proc_show()
     printf("------------------------------------------------------------\n");
     printf("%-6s  %-7s  %8s  %6s\n", "IDX", "NAME", "RPM", "STATE");
     printf("------------------------------------------------------------\n");
-    printf("%-6d  %-7s  %8d  %s\n", I8K_FAN_CPU_0, fan_name[I8K_FAN_CPU_0], cpu0_fan, fan_status[cpu0_status]);
-    printf("%-6d  %-7s  %8d  %s\n", I8K_FAN_CPU_1, fan_name[I8K_FAN_CPU_1], cpu1_fan, fan_status[cpu1_status]);
-    printf("%-6d  %-7s  %8d  %s\n", I8K_FAN_FRONT_0, fan_name[I8K_FAN_FRONT_0], front0_fan, fan_status[front0_status]);
-    printf("%-6d  %-7s  %8d  %s\n", I8K_FAN_SYS_0, fan_name[I8K_FAN_SYS_0], sys0_fan, fan_status[sys0_status]);
-    printf("%-6d  %-7s  %8d  %s\n", I8K_FAN_SYS_1, fan_name[I8K_FAN_SYS_1], sys1_fan, fan_status[sys1_status]);
-    printf("%-6d  %-7s  %8d  %s\n", I8K_FAN_REAR_0, fan_name[I8K_FAN_REAR_0], rear0_fan, fan_status[rear0_status]);
-    printf("%-6d  %-7s  %8d  %s\n", I8K_FAN_REAR_1, fan_name[I8K_FAN_REAR_1], rear1_fan, fan_status[rear1_status]);
+    printf("%-6d  %-7s  %8d  %6s\n", I8K_FAN_CPU_0, fan_name[I8K_FAN_CPU_0], cpu0_fan, fan_status[cpu0_status]);
+    printf("%-6d  %-7s  %8d  %6s\n", I8K_FAN_CPU_1, fan_name[I8K_FAN_CPU_1], cpu1_fan, fan_status[cpu1_status]);
+    printf("%-6d  %-7s  %8d  %6s\n", I8K_FAN_FRONT_0, fan_name[I8K_FAN_FRONT_0], front0_fan, fan_status[front0_status]);
+    printf("%-6d  %-7s  %8d  %6s\n", I8K_FAN_SYS_0, fan_name[I8K_FAN_SYS_0], sys0_fan, fan_status[sys0_status]);
+    printf("%-6d  %-7s  %8d  %6s\n", I8K_FAN_SYS_1, fan_name[I8K_FAN_SYS_1], sys1_fan, fan_status[sys1_status]);
+    printf("%-6d  %-7s  %8d  %6s\n", I8K_FAN_REAR_0, fan_name[I8K_FAN_REAR_0], rear0_fan, fan_status[rear0_status]);
+    printf("%-6d  %-7s  %8d  %6s\n", I8K_FAN_REAR_1, fan_name[I8K_FAN_REAR_1], rear1_fan, fan_status[rear1_status]);
     printf("============================================================\n");
 }
 
