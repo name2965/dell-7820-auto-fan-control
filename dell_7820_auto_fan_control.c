@@ -157,10 +157,18 @@ int main(int argc, char **argv)
             min_temp_cnt++;
 
         if (max_temp_cnt >= 5) {
-            dell_set_fan(I8K_FAN_HIGH);
+            int cpu0_status = dell_get_fan_status(I8K_FAN_CPU_0);
+            int cpu1_status = dell_get_fan_status(I8K_FAN_CPU_1);
+
+            if (cpu0_status < I8K_FAN_HIGH && cpu1_status < I8K_FAN_HIGH)
+                dell_set_fan(I8K_FAN_HIGH);
             max_temp_cnt = 0;
         } else if (min_temp_cnt >= 5) {
-            dell_set_fan(I8K_FAN_LOW);
+            int cpu0_status = dell_get_fan_status(I8K_FAN_CPU_0);
+            int cpu1_status = dell_get_fan_status(I8K_FAN_CPU_1);
+
+            if (cpu0_status > I8K_FAN_LOW && cpu1_status > I8K_FAN_LOW)
+                dell_set_fan(I8K_FAN_LOW);
             min_temp_cnt = 0;
         }
 
