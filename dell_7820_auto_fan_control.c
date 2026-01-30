@@ -16,6 +16,9 @@
 
 #include "dell_7820_auto_fan_control.h"
 
+#define MIN_TEMP_CNT 5
+#define MAX_TEMP_CNT 20
+
 char machine_id[16] = {'\0',};
 int min_temp, max_temp;
 
@@ -142,34 +145,41 @@ int main(int argc, char **argv)
     term_enter_alt();
 
     dell_get_machine_id(machine_id);
-    int min_temp_cnt = 0, max_temp_cnt = 0;
+    int is_high, temp_cnt = 0;
+    int cpu0_temp = dell_get_temp(TEMP_CPU_0);
+    int cpu1_temp = dell_get_temp(TEMP_CPU_1);
+
+    if (cpu0_temp >= max_temp || cpu1_temp >= max_temp)
+        is_high = 1;
 
     for (;;) {
         term_clear_home();
         dell_proc_show();
 
-        int cpu0_temp = dell_get_temp(TEMP_CPU_0);
-        int cpu1_temp = dell_get_temp(TEMP_CPU_1);
+        cpu0_temp = dell_get_temp(TEMP_CPU_0);
+        cpu1_temp = dell_get_temp(TEMP_CPU_1);
 
-        if (cpu0_temp >= max_temp || cpu1_temp >= max_temp)
-            max_temp_cnt++;
-        else if (cpu0_temp < min_temp || cpu1_temp < min_temp)
-            min_temp_cnt++;
+        switch (is_high) {
+            case 0:
+                if (cpu0_temp >= max_temp || cpu1_temp >= max_temp)
+                    temp_cnt++;
 
-        if (max_temp_cnt >= 5) {
-            int cpu0_status = dell_get_fan_status(I8K_FAN_CPU_0);
-            int cpu1_status = dell_get_fan_status(I8K_FAN_CPU_1);
+                if (temp_cnt >= MAX_TEMP_CNT) {
+                    dell_set_fan(I8K_FAN_HIGH);
+                    temp_cnt = 0;
+                    is_high = 1;
+                }
+                break;
+            case 1:
+                if (cpu0_temp < min_temp || cpu1_temp < min_temp)
+                    temp_cnt++;
 
-            if (cpu0_status < I8K_FAN_HIGH && cpu1_status < I8K_FAN_HIGH)
-                dell_set_fan(I8K_FAN_HIGH);
-            max_temp_cnt = 0;
-        } else if (min_temp_cnt >= 5) {
-            int cpu0_status = dell_get_fan_status(I8K_FAN_CPU_0);
-            int cpu1_status = dell_get_fan_status(I8K_FAN_CPU_1);
-
-            if (cpu0_status > I8K_FAN_LOW && cpu1_status > I8K_FAN_LOW)
-                dell_set_fan(I8K_FAN_LOW);
-            min_temp_cnt = 0;
+                if (temp_cnt >= MIN_TEMP_CNT) {
+                    dell_set_fan(I8K_FAN_LOW);
+                    temp_cnt = 0;
+                    is_high = 0;
+                }
+                break;
         }
 
         struct timespec ts = { .tv_sec = 2, .tv_nsec = 0 };
