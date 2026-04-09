@@ -17,7 +17,7 @@
 #include "dell_7820_auto_fan_control.h"
 
 #define MIN_TEMP_CNT 5
-#define MAX_TEMP_CNT 20
+#define MAX_TEMP_CNT 30
 
 char machine_id[16] = {'\0',};
 int min_temp, max_temp;
@@ -159,29 +159,27 @@ int main(int argc, char **argv)
         cpu0_temp = dell_get_temp(TEMP_CPU_0);
         cpu1_temp = dell_get_temp(TEMP_CPU_1);
 
+	if (cpu0_temp >= max_temp || cpu1_temp >= max_temp)
+		is_high = 1;
+	else if (cpu0_temp < min_temp || cpu1_temp < min_temp)
+		is_high = 0;
+
+	temp_cnt++;
+
         switch (is_high) {
             case 0:
-                if (cpu0_temp >= max_temp || cpu1_temp >= max_temp)
-                    temp_cnt++;
-
-                if (temp_cnt >= MAX_TEMP_CNT) {
-                    dell_set_fan(I8K_FAN_HIGH);
-                    temp_cnt = 0;
-                    is_high = 1;
-                }
-                break;
-            case 1:
-                if (cpu0_temp < min_temp || cpu1_temp < min_temp)
-                    temp_cnt++;
-
                 if (temp_cnt >= MIN_TEMP_CNT) {
                     dell_set_fan(I8K_FAN_LOW);
                     temp_cnt = 0;
-                    is_high = 0;
+                }
+                break;
+            case 1:
+                if (temp_cnt >= MAX_TEMP_CNT) {
+                    dell_set_fan(I8K_FAN_HIGH);
+                    temp_cnt = 0;
                 }
                 break;
         }
-
         struct timespec ts = { .tv_sec = 2, .tv_nsec = 0 };
         nanosleep(&ts, NULL);
     }
