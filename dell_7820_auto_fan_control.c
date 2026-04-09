@@ -79,6 +79,12 @@ void dell_set_fan(int speed)
     dell_set_fan_speed(I8K_FAN_SYS_1, speed);
 }
 
+void dell_set_fan_min(int speed)
+{
+	dell_set_fan_speed(I8K_FAN_CPU_0, speed);
+	dell_set_fan_speed(I8K_FAN_CPU_1, speed);
+}
+
 int find_dell_smm_hwmon()
 {
     int n;
